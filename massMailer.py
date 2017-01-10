@@ -10,7 +10,7 @@ import datetime
 from smtplib import SMTP
 
 class mailerGui(QMainWindow):
-    def __init__(self, appQueue, cliQueue):
+    def __init__(self):
         # constructor
 
         self.qt_app = QApplication(sys.argv)
@@ -85,15 +85,8 @@ def main():
     # the queue should contain no more than maxSize elements
     # QTextCodec.setCodecForCStrings(QTextCodec.codecForName("UTF-8"))
 
-    workThreads = []
-    appQueue = queue.Queue()
-    cliQueue = queue.Queue()
-
-    app = mailerGui(appQueue, cliQueue)
+    app = mailerGui()
     app.run()
-
-    for thread in workThreads:
-        thread.join()
 
 if __name__ == '__main__':
     main()
