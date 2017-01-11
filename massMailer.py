@@ -29,18 +29,15 @@ class mailerGui(QMainWindow):
         # buttons
         self.ui.buttonTestSMTP.clicked.connect(self.testSMTP)
         self.ui.buttonSend.clicked.connect(self.sendMail)
-        self.ui.buttonTo.clicked.connect(self.toPressed)
-        self.ui.buttonCc.clicked.connect(self.ccPressed)
-        self.ui.buttonBcc.clicked.connect(self.bccPressed)
+        self.ui.buttonTo.clicked.connect(lambda: self.modePressed("To"))
+        self.ui.buttonCc.clicked.connect(lambda: self.modePressed("Cc"))
+        self.ui.buttonBcc.clicked.connect(lambda: self.modePressed("Bcc"))
         self.ui.buttonRemove.clicked.connect(self.removePressed)
 
         # lists
 
-        # dicts
         # dictionary bir listede ayni mailden bir tane olmasini garantiler
-        self.listTo = {}
-        self.listCc = {}
-        self.listBcc = {}
+        self.emailList = {}
 
     def run(self):
         self.show()
@@ -59,7 +56,7 @@ class mailerGui(QMainWindow):
             self.log("Invalid mail: %s" % (temp[1]))
             return False
 
-    def readEmailList(self):
+    def readEmailLine(self):
         toInput = self.ui.newEmail.text()
         toSplit = toInput.strip().split(',')
         emails = []
@@ -70,68 +67,35 @@ class mailerGui(QMainWindow):
         return emails
 
     def removePressed(self):
-        items = self.ui.listTo.selectedItems()
+        items = self.ui.treeDestination.selectedItems()
+        root = self.ui.treeDestination.invisibleRootItem()
         for item in items:
-            email = item.text()
-            del self.listTo[email]
-            self.ui.listTo.takeItem(self.ui.listTo.row(item))
+            email = item.text(0)
+            root.removeChild(item)
+            del self.emailList[email]
             self.log("Removed: %s" % (email))
-        self.ui.listTo.update()
+        self.ui.treeDestination.update()
 
-        items = self.ui.listCc.selectedItems()
-        for item in items:
-            email = item.text()
-            del self.listCc[email]
-            self.ui.listCc.takeItem(self.ui.listCc.row(item))
-            self.log("Removed: %s" % (email))
-        self.ui.listCc.update()
-
-        items = self.ui.listBcc.selectedItems()
-        for item in items:
-            email = item.text()
-            del self.listBcc[email]
-            self.ui.listBcc.takeItem(self.ui.listBcc.row(item))
-            self.log("Removed: %s" % (email))
-        self.ui.listBcc.update()
-
-    def toPressed(self):
-        listMails = self.readEmailList()
+    def modePressed(self, mode):
+        listMails = self.readEmailLine()
 
         for email in listMails:
-            if email[0] in self.listTo.keys():
-                self.listTo[email[0]][0] = email[1]
-                self.log("Modified: %s, %s" % (email[0], email[1]))
+            if email[0] in self.emailList.keys():
+                self.emailList[email[0]][0] = email[1]
+                self.emailList[email[0]][1] = mode
+
+                self.emailList[email[0]][2].setText(1, email[1])
+                self.emailList[email[0]][2].setText(2, mode)
+
+                self.log("Modified: %s, %s, %s" % (email[0], email[1], mode))
                 continue
-            item = QListWidgetItem(email[0])
-            self.listTo[email[0]] = [ email[1], item ]
-            self.ui.listTo.addItem(item)
-            self.log("Added: %s, %s" % (email[0], email[1]))
-
-    def ccPressed(self):
-        listMails = self.readEmailList()
-
-        for email in listMails:
-            if email[0] in self.listCc.keys():
-                self.listCc[email[0]][0] = email[1]
-                self.log("Modified: %s, %s" % (email[0], email[1]))
-                continue
-            item = QListWidgetItem(email[0])
-            self.listCc[email[0]] = [ email[1], item ]
-            self.ui.listCc.addItem(item)
-            self.log("Added: %s, %s" % (email[0], email[1]))
-
-    def bccPressed(self):
-        listMails = self.readEmailList()
-
-        for email in listMails:
-            if email[0] in self.listBcc.keys():
-                self.listBcc[email[0]][0] = email[1]
-                self.log("Modified: %s, %s" % (email[0], email[1]))
-                continue
-            item = QListWidgetItem(email[0])
-            self.listBcc[email[0]] = [ email[1], item ]
-            self.ui.listBcc.addItem(item)
-            self.log("Added: %s, %s" % (email[0], email[1]))
+            item = QTreeWidgetItem()
+            item.setText(0, email[0])
+            item.setText(1, email[1])
+            item.setText(2, mode)
+            self.ui.treeDestination.addTopLevelItem(item)
+            self.emailList[email[0]] = [email[1], mode, item]
+            self.log("Added: %s, %s, %s" % (email[0], email[1], mode))
 
     def sendMail(self):
         self.log("Sending mail.")
