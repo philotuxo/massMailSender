@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>P2P Social Network Project</string>
+   <string>Mass Mailer</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QTabWidget" name="tabWidget">
@@ -33,14 +33,30 @@
      <attribute name="title">
       <string>Mail Text</string>
      </attribute>
-     <widget class="QTextEdit" name="textEdit">
+     <widget class="QTextEdit" name="textMail">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>40</y>
+        <width>651</width>
+        <height>451</height>
+       </rect>
+      </property>
+      <property name="placeholderText">
+       <string>Enter the mail text here...</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="textSubject">
       <property name="geometry">
        <rect>
         <x>10</x>
         <y>10</y>
         <width>651</width>
-        <height>511</height>
+        <height>21</height>
        </rect>
+      </property>
+      <property name="placeholderText">
+       <string>Enter the subject here...</string>
       </property>
      </widget>
     </widget>
@@ -52,23 +68,26 @@
       <property name="geometry">
        <rect>
         <x>460</x>
-        <y>10</y>
+        <y>70</y>
         <width>211</width>
         <height>21</height>
        </rect>
       </property>
       <property name="text">
-       <string>mailing@pierreloti.k12.tr</string>
+       <string/>
       </property>
       <property name="placeholderText">
        <string>Enter the username.</string>
+      </property>
+      <property name="clearButtonEnabled">
+       <bool>true</bool>
       </property>
      </widget>
      <widget class="QLineEdit" name="password">
       <property name="geometry">
        <rect>
         <x>460</x>
-        <y>40</y>
+        <y>100</y>
         <width>211</width>
         <height>21</height>
        </rect>
@@ -82,12 +101,15 @@
       <property name="placeholderText">
        <string>Enter your password.</string>
       </property>
+      <property name="clearButtonEnabled">
+       <bool>true</bool>
+      </property>
      </widget>
      <widget class="QPushButton" name="buttonTestSMTP">
       <property name="geometry">
        <rect>
         <x>520</x>
-        <y>70</y>
+        <y>130</y>
         <width>88</width>
         <height>21</height>
        </rect>
@@ -96,6 +118,276 @@
        <string>Test SMTP</string>
       </property>
      </widget>
+     <widget class="QLineEdit" name="name">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>40</y>
+        <width>211</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="placeholderText">
+       <string>Enter the real name</string>
+      </property>
+      <property name="clearButtonEnabled">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="server">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>10</y>
+        <width>141</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>smtp.gmail.com</string>
+      </property>
+      <property name="placeholderText">
+       <string>SMTP server</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="port">
+      <property name="geometry">
+       <rect>
+        <x>610</x>
+        <y>10</y>
+        <width>61</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>587</string>
+      </property>
+      <property name="placeholderText">
+       <string>Port</string>
+      </property>
+      <property name="clearButtonEnabled">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="newEmail">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>290</y>
+        <width>651</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="placeholderText">
+       <string>Add comma seperated emails.</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="buttonTo">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>320</y>
+        <width>41</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>To</string>
+      </property>
+     </widget>
+     <widget class="QListWidget" name="listBcc">
+      <property name="geometry">
+       <rect>
+        <x>430</x>
+        <y>370</y>
+        <width>201</width>
+        <height>121</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>8</pointsize>
+       </font>
+      </property>
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="dragDropMode">
+       <enum>QAbstractItemView::DragDrop</enum>
+      </property>
+      <property name="selectionMode">
+       <enum>QAbstractItemView::MultiSelection</enum>
+      </property>
+     </widget>
+     <widget class="QListWidget" name="listCc">
+      <property name="geometry">
+       <rect>
+        <x>220</x>
+        <y>370</y>
+        <width>201</width>
+        <height>121</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>8</pointsize>
+       </font>
+      </property>
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="dragDropMode">
+       <enum>QAbstractItemView::DragDrop</enum>
+      </property>
+      <property name="selectionMode">
+       <enum>QAbstractItemView::MultiSelection</enum>
+      </property>
+     </widget>
+     <widget class="QListWidget" name="listTo">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>370</y>
+        <width>201</width>
+        <height>121</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>8</pointsize>
+       </font>
+      </property>
+      <property name="autoFillBackground">
+       <bool>true</bool>
+      </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed</set>
+      </property>
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="dragDropMode">
+       <enum>QAbstractItemView::DragDrop</enum>
+      </property>
+      <property name="selectionMode">
+       <enum>QAbstractItemView::MultiSelection</enum>
+      </property>
+      <property name="sortingEnabled">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelTo">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>350</y>
+        <width>58</width>
+        <height>18</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>To:</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelCc">
+      <property name="geometry">
+       <rect>
+        <x>220</x>
+        <y>350</y>
+        <width>58</width>
+        <height>18</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Cc:</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelBcc">
+      <property name="geometry">
+       <rect>
+        <x>430</x>
+        <y>350</y>
+        <width>58</width>
+        <height>18</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Bcc:</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="buttonCc">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>320</y>
+        <width>41</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Cc</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="buttonBcc">
+      <property name="geometry">
+       <rect>
+        <x>110</x>
+        <y>320</y>
+        <width>41</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Bcc</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="buttonRemove">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>500</y>
+        <width>71</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Remove</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="buttonSend">
+      <property name="geometry">
+       <rect>
+        <x>530</x>
+        <y>500</y>
+        <width>101</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Send Emails</string>
+      </property>
+     </widget>
+     <zorder>username</zorder>
+     <zorder>password</zorder>
+     <zorder>buttonTestSMTP</zorder>
+     <zorder>name</zorder>
+     <zorder>port</zorder>
+     <zorder>server</zorder>
+     <zorder>newEmail</zorder>
+     <zorder>buttonTo</zorder>
+     <zorder>listBcc</zorder>
+     <zorder>listCc</zorder>
+     <zorder>listTo</zorder>
+     <zorder>labelTo</zorder>
+     <zorder>labelCc</zorder>
+     <zorder>labelBcc</zorder>
+     <zorder>buttonCc</zorder>
+     <zorder>buttonBcc</zorder>
+     <zorder>buttonRemove</zorder>
+     <zorder>buttonSend</zorder>
     </widget>
    </widget>
    <widget class="QTextBrowser" name="logView">
@@ -126,6 +418,27 @@
    </widget>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>textSubject</tabstop>
+  <tabstop>textMail</tabstop>
+  <tabstop>newEmail</tabstop>
+  <tabstop>buttonTo</tabstop>
+  <tabstop>buttonCc</tabstop>
+  <tabstop>buttonBcc</tabstop>
+  <tabstop>server</tabstop>
+  <tabstop>port</tabstop>
+  <tabstop>name</tabstop>
+  <tabstop>username</tabstop>
+  <tabstop>password</tabstop>
+  <tabstop>buttonTestSMTP</tabstop>
+  <tabstop>listBcc</tabstop>
+  <tabstop>listCc</tabstop>
+  <tabstop>listTo</tabstop>
+  <tabstop>buttonRemove</tabstop>
+  <tabstop>logView</tabstop>
+  <tabstop>buttonSend</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
