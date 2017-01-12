@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>957</width>
-    <height>582</height>
+    <width>1366</width>
+    <height>768</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,9 +18,9 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>10</y>
-      <width>731</width>
-      <height>571</height>
+      <y>0</y>
+      <width>941</width>
+      <height>761</height>
      </rect>
     </property>
     <property name="currentIndex">
@@ -67,23 +67,24 @@
      <widget class="QPushButton" name="buttonSend">
       <property name="geometry">
        <rect>
-        <x>540</x>
-        <y>200</y>
+        <x>580</x>
+        <y>40</y>
         <width>91</width>
-        <height>31</height>
+        <height>81</height>
        </rect>
       </property>
       <property name="text">
-       <string>Send Emails</string>
+       <string>Send 
+Emails</string>
       </property>
      </widget>
      <widget class="QGroupBox" name="groupSMTP">
       <property name="geometry">
        <rect>
-        <x>480</x>
+        <x>700</x>
         <y>0</y>
         <width>231</width>
-        <height>181</height>
+        <height>191</height>
        </rect>
       </property>
       <property name="title">
@@ -101,7 +102,7 @@
          <x>130</x>
          <y>150</y>
          <width>91</width>
-         <height>21</height>
+         <height>31</height>
         </rect>
        </property>
        <property name="text">
@@ -203,21 +204,14 @@
         <bool>true</bool>
        </property>
       </widget>
-      <zorder>buttonTestSMTP</zorder>
-      <zorder>port</zorder>
-      <zorder>server</zorder>
-      <zorder>name</zorder>
-      <zorder>password</zorder>
-      <zorder>username</zorder>
-      <zorder>labelLog</zorder>
      </widget>
      <widget class="QGroupBox" name="groupDestination">
       <property name="geometry">
        <rect>
-        <x>340</x>
-        <y>260</y>
+        <x>550</x>
+        <y>190</y>
         <width>381</width>
-        <height>271</height>
+        <height>531</height>
        </rect>
       </property>
       <property name="title">
@@ -278,8 +272,8 @@
       <widget class="QPushButton" name="buttonRemove">
        <property name="geometry">
         <rect>
-         <x>130</x>
-         <y>240</y>
+         <x>250</x>
+         <y>500</y>
          <width>121</width>
          <height>21</height>
         </rect>
@@ -294,8 +288,13 @@
          <x>10</x>
          <y>70</y>
          <width>361</width>
-         <height>161</height>
+         <height>431</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
        </property>
        <property name="autoScrollMargin">
         <number>12</number>
@@ -322,7 +321,7 @@
         <number>3</number>
        </property>
        <attribute name="headerMinimumSectionSize">
-        <number>29</number>
+        <number>20</number>
        </attribute>
        <attribute name="headerShowSortIndicator" stdset="0">
         <bool>true</bool>
@@ -349,18 +348,18 @@
        <rect>
         <x>10</x>
         <y>0</y>
-        <width>331</width>
-        <height>531</height>
+        <width>531</width>
+        <height>721</height>
        </rect>
       </property>
       <property name="title">
        <string>Sources</string>
       </property>
-      <widget class="QPushButton" name="buttonBcc_2">
+      <widget class="QPushButton" name="buttonSourceBcc">
        <property name="geometry">
         <rect>
-         <x>210</x>
-         <y>490</y>
+         <x>480</x>
+         <y>690</y>
          <width>41</width>
          <height>21</height>
         </rect>
@@ -373,7 +372,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>70</y>
+         <y>100</y>
          <width>81</width>
          <height>18</height>
         </rect>
@@ -389,9 +388,9 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>30</y>
+         <y>40</y>
          <width>91</width>
-         <height>21</height>
+         <height>31</height>
         </rect>
        </property>
        <property name="text">
@@ -401,22 +400,22 @@
       <widget class="QPushButton" name="buttonReadPersonnel">
        <property name="geometry">
         <rect>
-         <x>10</x>
-         <y>10</y>
+         <x>100</x>
+         <y>40</y>
          <width>91</width>
-         <height>21</height>
+         <height>31</height>
         </rect>
        </property>
        <property name="text">
         <string>Personnel</string>
        </property>
       </widget>
-      <widget class="QLabel" name="labelClass_2">
+      <widget class="QLabel" name="labelEmails">
        <property name="geometry">
         <rect>
          <x>90</x>
-         <y>70</y>
-         <width>221</width>
+         <y>100</y>
+         <width>301</width>
          <height>18</height>
         </rect>
        </property>
@@ -427,11 +426,11 @@
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
-      <widget class="QPushButton" name="buttonTo_2">
+      <widget class="QPushButton" name="buttonSourceTo">
        <property name="geometry">
         <rect>
-         <x>130</x>
-         <y>490</y>
+         <x>400</x>
+         <y>690</y>
          <width>41</width>
          <height>21</height>
         </rect>
@@ -440,11 +439,11 @@
         <string>To</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="buttonCc_2">
+      <widget class="QPushButton" name="buttonSourceCc">
        <property name="geometry">
         <rect>
-         <x>170</x>
-         <y>490</y>
+         <x>440</x>
+         <y>690</y>
          <width>41</width>
          <height>21</height>
         </rect>
@@ -457,23 +456,36 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>90</y>
-         <width>81</width>
-         <height>401</height>
+         <y>120</y>
+         <width>111</width>
+         <height>571</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
        </property>
        <property name="autoScrollMargin">
         <number>12</number>
+       </property>
+       <property name="selectionMode">
+        <enum>QAbstractItemView::MultiSelection</enum>
        </property>
       </widget>
       <widget class="QTreeWidget" name="treeSources">
        <property name="geometry">
         <rect>
-         <x>90</x>
-         <y>90</y>
-         <width>231</width>
-         <height>401</height>
+         <x>120</x>
+         <y>120</y>
+         <width>401</width>
+         <height>571</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
        </property>
        <property name="autoScrollMargin">
         <number>12</number>
@@ -494,14 +506,22 @@
         <bool>false</bool>
        </property>
        <property name="columnCount">
-        <number>2</number>
+        <number>3</number>
        </property>
+       <attribute name="headerDefaultSectionSize">
+        <number>100</number>
+       </attribute>
        <attribute name="headerMinimumSectionSize">
-        <number>29</number>
+        <number>20</number>
        </attribute>
        <attribute name="headerShowSortIndicator" stdset="0">
         <bool>false</bool>
        </attribute>
+       <column>
+        <property name="text">
+         <string>Email</string>
+        </property>
+       </column>
        <column>
         <property name="text">
          <string>Name</string>
@@ -509,42 +529,46 @@
        </column>
        <column>
         <property name="text">
-         <string>Email</string>
+         <string>Categories</string>
         </property>
        </column>
       </widget>
-      <zorder>buttonBcc_2</zorder>
-      <zorder>labelClass</zorder>
-      <zorder>buttonReadCharlemagne</zorder>
-      <zorder>buttonReadPersonnel</zorder>
-      <zorder>labelClass_2</zorder>
-      <zorder>buttonTo_2</zorder>
-      <zorder>buttonCc_2</zorder>
-      <zorder>listCategories</zorder>
-      <zorder>buttonBcc_2</zorder>
-      <zorder>labelClass</zorder>
-      <zorder>buttonReadCharlemagne</zorder>
-      <zorder>buttonReadPersonnel</zorder>
-      <zorder>labelClass_2</zorder>
-      <zorder>buttonTo_2</zorder>
-      <zorder>buttonCc_2</zorder>
-      <zorder>listCategories</zorder>
-      <zorder>treeSources</zorder>
+      <widget class="QPushButton" name="buttonReadExported">
+       <property name="geometry">
+        <rect>
+         <x>190</x>
+         <y>40</y>
+         <width>101</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Read Exported</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="buttonExport">
+       <property name="geometry">
+        <rect>
+         <x>420</x>
+         <y>40</y>
+         <width>101</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Export</string>
+       </property>
+      </widget>
      </widget>
-     <zorder>buttonSend</zorder>
-     <zorder>labelLog</zorder>
-     <zorder>groupSMTP</zorder>
-     <zorder>groupDestination</zorder>
-     <zorder>groupSource</zorder>
     </widget>
    </widget>
    <widget class="QTextBrowser" name="logView">
     <property name="geometry">
      <rect>
-      <x>730</x>
+      <x>950</x>
       <y>20</y>
-      <width>221</width>
-      <height>561</height>
+      <width>411</width>
+      <height>741</height>
      </rect>
     </property>
     <property name="font">
@@ -552,27 +576,33 @@
       <pointsize>8</pointsize>
      </font>
     </property>
-    <property name="acceptRichText">
+    <property name="autoFillBackground">
      <bool>false</bool>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Plain</enum>
     </property>
    </widget>
    <widget class="QLabel" name="labelLog">
     <property name="geometry">
      <rect>
-      <x>730</x>
+      <x>950</x>
       <y>0</y>
-      <width>221</width>
+      <width>411</width>
       <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>System Log:</string>
+     <string>System Log</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>0</x>

@@ -9,6 +9,7 @@ from PyQt5.QtWidgets import *
 import datetime
 from smtplib import SMTP
 from email_validator import validate_email, EmailNotValidError
+from parser import *
 # from validate_email import validate_email as separate_email
 
 class mailerGui(QMainWindow):
@@ -32,12 +33,25 @@ class mailerGui(QMainWindow):
         self.ui.buttonTo.clicked.connect(lambda: self.modePressed("To"))
         self.ui.buttonCc.clicked.connect(lambda: self.modePressed("Cc"))
         self.ui.buttonBcc.clicked.connect(lambda: self.modePressed("Bcc"))
+        self.ui.buttonSourceTo.clicked.connect(lambda:
+                                               self.modeSourcePressed("To"))
+        self.ui.buttonSourceCc.clicked.connect(lambda:
+                                               self.modeSourcePressed("Cc"))
+        self.ui.buttonSourceBcc.clicked.connect(lambda:
+                                                self.modeSourcePressed("Bcc"))
         self.ui.buttonRemove.clicked.connect(self.removePressed)
 
+        # load buttons
+        self.ui.buttonReadCharlemagne.pressed.connect(self.readCharleData)
+
         # lists
+        self.ui.listCategories.itemSelectionChanged.connect(
+            self.onSelectionChanged)
 
         # dictionary bir listede ayni mailden bir tane olmasini garantiler
         self.emailList = {}
+        self.parents = {}
+        self.categories = {}
 
     def run(self):
         self.show()
@@ -45,6 +59,41 @@ class mailerGui(QMainWindow):
 
     def log(self, text):
         self.ui.logView.append(text)
+
+    def readCharleData(self):
+        dataFile, filt = QFileDialog.getOpenFileName(self,
+                                               caption='Open file',
+                                               directory='./data',
+                                               filter='Charlemagne Data (*.csv)')
+        print(dataFile)
+
+        self.parents, self.categories = parse_charlemagne(dataFile, delim=';')
+        for category in self.categories.keys():
+            item = QListWidgetItem(category)
+            self.ui.listCategories.addItem(item)
+        self.ui.listCategories.sortItems()
+
+        for email in self.parents.keys():
+            item = QTreeWidgetItem((
+                email,
+                self.parents[email][0],
+                ' '.join(self.parents[email][1])))
+            self.ui.treeSources.addTopLevelItem(item)
+            self.parents[email].append(item)
+
+    def onSelectionChanged(self):
+        # get selected categories
+        selectedCategories = []
+        temp = self.ui.listCategories.selectedItems()
+        for item in temp:
+            selectedCategories.append(item.text())
+
+        # selection = []
+
+        self.ui.treeSources.clearSelection()
+        for category in selectedCategories:
+            for email in self.categories[category]:
+                self.parents[email][2].setSelected(True)
 
     def validate_email(self, text):
         temp = parseaddr(text)
@@ -90,12 +139,36 @@ class mailerGui(QMainWindow):
                 self.log("Modified: %s, %s, %s" % (email[0], email[1], mode))
                 continue
             item = QTreeWidgetItem()
-            item.setText(0, email[0])
             item.setText(1, email[1])
+            item.setText(0, email[0])
             item.setText(2, mode)
             self.ui.treeDestination.addTopLevelItem(item)
             self.emailList[email[0]] = [email[1], mode, item]
             self.log("Added: %s, %s, %s" % (email[0], email[1], mode))
+
+    def modeSourcePressed(self, mode):
+
+        for item in self.ui.treeSources.selectedItems():
+            email = (item.text(0), item.text(1))
+
+            if email[0] in self.emailList.keys():
+                self.emailList[email[0]][0] = email[1]
+                self.emailList[email[0]][1] = mode
+
+                self.emailList[email[0]][2].setText(1, email[1])
+                self.emailList[email[0]][2].setText(2, mode)
+
+                self.log("Modified: %s, %s, %s" % (email[0], email[1], mode))
+                continue
+
+            item = QTreeWidgetItem()
+            item.setText(1, email[1])
+            item.setText(0, email[0])
+            item.setText(2, mode)
+            self.ui.treeDestination.addTopLevelItem(item)
+            self.emailList[email[0]] = [email[1], mode, item]
+            self.log("Added: %s, %s, %s" % (email[0], email[1], mode))
+
 
     def sendMail(self):
         self.log("Sending mail.")
