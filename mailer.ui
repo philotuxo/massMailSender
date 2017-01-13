@@ -342,6 +342,22 @@ Emails</string>
         </property>
        </column>
       </widget>
+      <widget class="QLabel" name="labelNoAddresses">
+       <property name="geometry">
+        <rect>
+         <x>290</x>
+         <y>50</y>
+         <width>71</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Total: 0</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
      </widget>
      <widget class="QGroupBox" name="groupSource">
       <property name="geometry">
@@ -536,7 +552,7 @@ Emails</string>
       <widget class="QPushButton" name="buttonReadExported">
        <property name="geometry">
         <rect>
-         <x>190</x>
+         <x>280</x>
          <y>40</y>
          <width>101</width>
          <height>31</height>
@@ -570,6 +586,19 @@ Emails</string>
        </property>
        <property name="text">
         <string>Clear</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="buttonReadSites">
+       <property name="geometry">
+        <rect>
+         <x>190</x>
+         <y>40</y>
+         <width>91</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Sites</string>
        </property>
       </widget>
      </widget>

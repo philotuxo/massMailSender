@@ -6,6 +6,24 @@ strClass = "Classe code"
 strName = "Nom et prénom responsable"
 strEmail = "Email Famille"
 
+def parse_sites(filename, delim = ';'):
+    sites = {}
+    with open(filename, 'r', encoding="ISO-8859-15") as f:
+        for line in f:
+            splitLine = line.strip().split(sep=delim)
+            codeClass = splitLine[0]
+
+            for field in splitLine[1:]:
+                if len(field) == 0:
+                    continue
+                field = " " + field
+                if not field in sites.keys():
+                    sites[field] = []
+                sites[field].append(splitLine[0])
+
+        return sites
+
+
 def parse_charlemagne(filename, delim = ';'):
     parents = {}
     categories = {}
@@ -23,7 +41,7 @@ def parse_charlemagne(filename, delim = ';'):
                 emailParent = splitLine[reg[1]]
                 nameParent = splitLine[reg[2]]
 
-                parents[emailParent] = [nameParent, []]
+                parents[emailParent] = [nameParent, [], []]
 
                 for i in range(len(codeClass)):
                     code = codeClass[:i+1]
@@ -32,7 +50,7 @@ def parse_charlemagne(filename, delim = ';'):
                         categories[code] = []
                     categories[code].append(emailParent)
 
-            categories[" Parents"] = parents.keys()
+            categories[" All Parents"] = parents.keys()
             return parents, categories
 
         except: # if any error detected
@@ -65,5 +83,4 @@ def header_registration(header_string, delim=';'):
         return False
 
     return regHeader
-
 

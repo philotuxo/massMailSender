@@ -1,4 +1,4 @@
-# -*- coding: utf8 -*-
+# -*- coding: iso-8859-15 -*-
 
 import os,sys
 from mailer_ui import Ui_MainWindow
@@ -47,6 +47,7 @@ class mailerGui(QMainWindow):
 
         # load buttons
         self.ui.buttonReadCharlemagne.pressed.connect(self.readCharleData)
+        self.ui.buttonReadSites.pressed.connect(self.readSiteData)
 
         # lists
         self.ui.listCategories.itemSelectionChanged.connect(
@@ -57,6 +58,7 @@ class mailerGui(QMainWindow):
         self.emailList = {}
         self.parents = {}
         self.categories = {}
+        self.sites = {}
 
     def run(self):
         self.show()
@@ -65,14 +67,22 @@ class mailerGui(QMainWindow):
     def log(self, text):
         self.ui.logView.append(text)
 
-    def readCharleData(self):
-        dataFile, filt = QFileDialog.getOpenFileName(self,
-                                               caption='Open file',
-                                               directory='./data',
-                                               filter='Charlemagne Data (*.csv)')
-        print(dataFile)
+    def exportData(self):
+        pass
 
-        self.parents, self.categories = parse_charlemagne(dataFile, delim=';')
+    def importData(self):
+        pass
+
+    def updateListCategories(self):
+        self.log("Updating categories.")
+        self.ui.treeSources.clear()
+        self.ui.listCategories.clear()
+
+        for email in self.parents.keys():
+            if len(self.parents[email]) > 2:
+                item = self.parents[email][2]
+                del item
+
         for category in self.categories.keys():
             item = QListWidgetItem(category)
             self.ui.listCategories.addItem(item)
@@ -84,7 +94,54 @@ class mailerGui(QMainWindow):
                 self.parents[email][0],
                 ' '.join(self.parents[email][1])))
             self.ui.treeSources.addTopLevelItem(item)
-            self.parents[email].append(item)
+            self.parents[email][2] = item
+
+    def readCharleData(self, dataFile = None):
+        self.log("Reading Charlemagne data.")
+
+        if not dataFile:
+            dataFile, filt = QFileDialog.getOpenFileName(self,
+                                               caption='Open file',
+                                               directory='./data',
+                                               filter='Charlemagne Data (*.csv)')
+
+        self.parents, self.categories = parse_charlemagne(dataFile, delim=';')
+        self.updateListCategories()
+
+    def updateNumberAddresses(self):
+        self.ui.labelNoAddresses.setText("Total: " +
+                     str(self.ui.treeDestination.topLevelItemCount()))
+
+    def mergeSiteData(self):
+        self.log("Merging site information.")
+        if len(self.sites.keys()) == 0 or\
+            len(self.categories.keys()) == 0 or\
+            len(self.parents.keys()) == 0:
+            self.log("Insufficient information.")
+            return
+
+        for categ_superior in self.sites.keys():
+            if not categ_superior in self.categories.keys():
+                self.categories[categ_superior] = []
+            for categ_inferior in self.sites[categ_superior]:
+                for email in self.categories[categ_inferior]:
+                    self.categories[categ_superior].append(email)
+                    if categ_superior not in self.parents[email][1]:
+                        self.parents[email][1].append(categ_superior)
+
+        self.updateListCategories()
+
+    def readSiteData(self, dataFile = None):
+        self.log("Reading sites data.")
+        if not dataFile:
+            dataFile, filt = QFileDialog.getOpenFileName(self,
+                                               caption='Open file',
+                                               directory='./data',
+                                               filter='Charlemagne Data (*.csv)')
+
+        self.sites = parse_sites(dataFile)
+        self.mergeSiteData()
+
 
     def onSelectionChanged(self):
         # get selected categories
@@ -154,6 +211,8 @@ class mailerGui(QMainWindow):
             self.emailList[email[0]] = [email[1], mode, item]
             self.log("Added: %s, %s, %s" % (email[0], email[1], mode))
 
+        self.updateNumberAddresses()
+
     def modeSourcePressed(self, mode):
 
         for item in self.ui.treeSources.selectedItems():
@@ -177,6 +236,7 @@ class mailerGui(QMainWindow):
             self.emailList[email[0]] = [email[1], mode, item]
             self.log("Added: %s, %s, %s" % (email[0], email[1], mode))
 
+        self.updateNumberAddresses()
 
     def sendMail(self):
         self.log("Sending mail.")
