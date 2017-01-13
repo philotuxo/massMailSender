@@ -373,7 +373,7 @@ Emails</string>
         <rect>
          <x>10</x>
          <y>100</y>
-         <width>81</width>
+         <width>111</width>
          <height>18</height>
         </rect>
        </property>
@@ -413,10 +413,10 @@ Emails</string>
       <widget class="QLabel" name="labelEmails">
        <property name="geometry">
         <rect>
-         <x>90</x>
+         <x>120</x>
          <y>100</y>
-         <width>301</width>
-         <height>18</height>
+         <width>401</width>
+         <height>20</height>
         </rect>
        </property>
        <property name="text">
@@ -557,6 +557,19 @@ Emails</string>
        </property>
        <property name="text">
         <string>Export</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="buttonClearCategories">
+       <property name="geometry">
+        <rect>
+         <x>80</x>
+         <y>690</y>
+         <width>41</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Clear</string>
        </property>
       </widget>
      </widget>

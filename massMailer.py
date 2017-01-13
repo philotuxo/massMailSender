@@ -27,19 +27,27 @@ class mailerGui(QMainWindow):
         self.smtpserver = "smtp.gmail.com"
         self.smtpport = 587
 
+        # size considerations
+        self.ui.treeSources.header().resizeSection(0, 160)
+        self.ui.treeSources.header().resizeSection(1, 160)
+        self.ui.treeSources.header().resizeSection(2, 40)
+        self.ui.treeDestination.header().resizeSection(0, 145)
+        self.ui.treeDestination.header().resizeSection(1, 145)
+        self.ui.treeDestination.header().resizeSection(2, 40)
+
         # buttons
-        self.ui.buttonTestSMTP.clicked.connect(self.testSMTP)
-        self.ui.buttonSend.clicked.connect(self.sendMail)
-        self.ui.buttonTo.clicked.connect(lambda: self.modePressed("To"))
-        self.ui.buttonCc.clicked.connect(lambda: self.modePressed("Cc"))
-        self.ui.buttonBcc.clicked.connect(lambda: self.modePressed("Bcc"))
-        self.ui.buttonSourceTo.clicked.connect(lambda:
+        self.ui.buttonTestSMTP.pressed.connect(self.testSMTP)
+        self.ui.buttonSend.pressed.connect(self.sendMail)
+        self.ui.buttonTo.pressed.connect(lambda: self.modePressed("To"))
+        self.ui.buttonCc.pressed.connect(lambda: self.modePressed("Cc"))
+        self.ui.buttonBcc.pressed.connect(lambda: self.modePressed("Bcc"))
+        self.ui.buttonSourceTo.pressed.connect(lambda:
                                                self.modeSourcePressed("To"))
-        self.ui.buttonSourceCc.clicked.connect(lambda:
+        self.ui.buttonSourceCc.pressed.connect(lambda:
                                                self.modeSourcePressed("Cc"))
-        self.ui.buttonSourceBcc.clicked.connect(lambda:
+        self.ui.buttonSourceBcc.pressed.connect(lambda:
                                                 self.modeSourcePressed("Bcc"))
-        self.ui.buttonRemove.clicked.connect(self.removePressed)
+        self.ui.buttonRemove.pressed.connect(self.removePressed)
 
         # load buttons
         self.ui.buttonReadCharlemagne.pressed.connect(self.readCharleData)
@@ -47,6 +55,7 @@ class mailerGui(QMainWindow):
         # lists
         self.ui.listCategories.itemSelectionChanged.connect(
             self.onSelectionChanged)
+        self.ui.buttonClearCategories.pressed.connect(self.clearCategories)
 
         # dictionary bir listede ayni mailden bir tane olmasini garantiler
         self.emailList = {}
@@ -94,6 +103,9 @@ class mailerGui(QMainWindow):
         for category in selectedCategories:
             for email in self.categories[category]:
                 self.parents[email][2].setSelected(True)
+
+    def clearCategories(self):
+        self.ui.listCategories.clearSelection()
 
     def validate_email(self, text):
         temp = parseaddr(text)
