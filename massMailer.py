@@ -23,10 +23,6 @@ class mailerGui(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-        # constants
-        self.smtpserver = "smtp.gmail.com"
-        self.smtpport = 587
-
         # size considerations
         self.ui.treeSources.header().resizeSection(0, 160)
         self.ui.treeSources.header().resizeSection(1, 160)
